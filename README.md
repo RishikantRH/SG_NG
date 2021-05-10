@@ -688,3 +688,88 @@ var elem = `<div>
 
 	let p = new Person("Sam", 43);
 ===================
+
+Node.js, webpack and TypeScript 
+===============================
+
+Node.js ==> an environment with V8 JavaScript engine
+	Why Node.JS?
+		1) To build realtime streaming API [ for Java: Netty with WebFlux]
+			build RESTful web services/ GraphQL
+		2) To build standalone application
+		3) as build environment for client-side web applications
+
+	As Build environment for client-side applications with the help of build tools:
+		* code might be written in TypeScript, ES6, CoffeeScript, LiveScript
+		 Transpile thme to ES5 to make it portable across browser
+		* We might use Module systems, which are not understood by browsers, we might need
+			to bundle them [ Browserify]
+		* minify, uglify to reduce payload	
+	-------------------------
+	WebAPI ==> Libuv [ C++ library]
+
+	Node.js when started loads many pre-defined modules [ fs, http, crypto, repl, cluster]
+	NPM / YARN ==> Node Package Manager is handle 3rd party modules
+			* download, update, upload
+
+	Project specific modules
+		npm install react
+	executable modules
+			npm install -g json-server
+
+	Every node.js project has "package.json" ==> pom.xml used by Maven
+	1) package.json
+	{
+		"dependencies": {
+			"@angular/core": "^8.0.1"
+		}
+		"devDependencies": {
+			"jest": "~26.6.3"
+		},
+		"scripts": {
+			"start" : "ng  serve --port 1234",
+			"test": "mocha --spec line"
+		}
+	}
+
+	npm start
+
+	2) "node_modules" folder
+		place where dependencies are downloded for the project
+--------------------------------------------------------------------
+	Person.js
+	babel Person.js ==> Person.js with ES5
+
+	JavaScript build tools ==> to automate tasks like : transcompiler, lint, testing, uglify,
+	minify, bundle
+
+
+	1) Grunt
+	2) Gulp
+	3) Webpack
+
+	Grunt is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting. 
+
+
+	CommonJS module system
+
+	lib.js
+
+	module.exports.add = function(x,y) {..}
+
+	module.exports.sub = function(x,y) {..}	
+
+
+	other.js
+
+	let lib = require('./lib');
+
+	console.log(lib.add(4,5));
+----------------
+index.html
+
+<script src="funcs.js"></script>
+<script src="Person.js"></script>
+<script src="index.js"></script>
+======================================================
+
