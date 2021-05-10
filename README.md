@@ -407,6 +407,185 @@ function memoize(fn) {
          console.log(memFib(34));
         console.timeEnd("second");
 ------------------------------------------------
+ES 5 is supported by almost all current browsers
 
-Post Lunch 2:00 PM
-ES 6
+ES 2015 / ES 6
+ECMAScript
+
+Development can happen in ES6, we use Transcompiler to convert to lower version ==> ES5
+
+Transcompiler , Transpiler ==> Babel, Traucer
+
+Babel is a free and open-source JavaScript transcompiler that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript.
+
+New Features of ES 2015 / ES 6
+1) scope variables [ let and const]
+
+
+var g = 100;
+function doTask() {
+    var a = 10;
+    if( g > a) {
+        let b = 20; // scope is within block; with "var" hoisted to function scope
+        c = 50;
+    }
+    console.log(g,a,b,c); // b is not visible
+}
+doTask();
+
+console.log(g,a,b,c);
+---------
+
+const PI = 3.14159; // constant 
+
+2) Arrow Operator ==> Lambda expression and default values
+
+function add(x,y) {
+	return x + y;
+}
+
+with Arrow operator
+
+let add = (x,y) => {
+	return x + y;
+}
+
+also
+
+let add = (x,y) => x + y;
+
+also
+
+let add = (x = 0, y = 0) => x + y;
+
+add(); // 0
+add(5); // 5
+add(4,5); // 9
+
+without default and arrow:
+
+function add(x,y) {
+	x = x || 0;
+	y = y || 0;
+	return x + y;
+}
+--------------
+
+https://caniuse.com/
+
+3) Destructing arrays
+
+	var colors = ["red", "green","blue","orange","pink"];
+
+	ES 5:
+		var r = colors[0];
+		var g = colors[1];
+
+	with ES 6:
+
+	let [r,g,b,...others] = colors;
+
+	r will be red
+	b is blue
+	others  will be ["orange","pink"];
+
+
+[...] spread operators
+
+4) Destructing objects
+
+let p = {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"};
+
+
+// Traditional way:
+console.log(p.name, p.age); // iPhone
+
+// ES6:
+let {name,price} = p;
+console.log(name, price ); // iPhone, 124447.44
+
+or
+let {name:n,price:amt} = p;
+console.log(n, amt ); // iPhone, 124447.44
+
+5) new way to clone 
+
+var colors = ["red", "green","blue","orange","pink"];
+ 
+let ref = colors;
+ 
+ref[0] ="GOld"
+"GOld"
+
+colors
+(5) ["GOld", "green", "blue", "orange", "pink"]
+ref
+(5) ["GOld", "green", "blue", "orange", "pink"]
+
+
+
+Clone using spread operator:
+var colors = ["red", "green","blue","orange","pink"];
+
+let clone = [...colors];
+clone[0]="Magenta"
+"Magenta"
+clone
+(5) ["Magenta", "green", "blue", "orange", "pink"]
+colors
+(5) ["GOld", "green", "blue", "orange", "pink"]
+---------------------------------------------------
+
+6) Template Literals
+
+ES5: strings can be in "Hello" or 'Hello'
+
+ES6: `tick operator`
+
+var name = "Peter";
+
+var msg = `Welcome ${name},
+to Angular Training
+Virtual Training`
+
+
+var elem = `<div>
+<h1>${customer.firstName}</h1>
+<h2>${customer.lastName}</h2>
+<p> Welcome to Angular</p>
+</div>`
+
+--------------------------
+
+7) Promise API ==> Asynchronous code execution ==> execute side effects
+	Promise => resolve , reject
+	Java: Future and Callable
+
+	fetch('https://jsonplaceholder.typicode.com/users/1')
+
+	synchronous method calls:
+
+	let res = doTask();
+	console.log(res); // this code executes only after doTask() is complete
+
+	Promise APIs: assume doTask() is promise based
+	doTask()
+		.then(
+			(data) => console.log(data) /*resolved code */,
+			(err) => cosole.log(err) /* rejected code */);
+
+	console.log("Hello"); // executes before doTask() completes
+
+	-----
+	doTask()
+		.then(
+			(data) => console.log(data) /*resolved code */,
+			(err) => console.log(err) /* rejected code */)
+		.catch(ex) {
+			console.log(ex)
+		};
+--------------
+
+8) async and await for Promise API to avoid nested callbacks
+-------------
+
