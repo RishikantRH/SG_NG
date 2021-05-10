@@ -406,3 +406,7 @@ function memoize(fn) {
         console.time("second");
          console.log(memFib(34));
         console.timeEnd("second");
+------------------------------------------------
+
+Post Lunch 2:00 PM
+ES 6
