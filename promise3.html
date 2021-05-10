@@ -11,8 +11,8 @@
     <script>
         function doTask() {
             return new Promise( (resolve, reject) => {
-                setTimeout(() => resolve("All Good from one!!!"), 1000)
-                // setTimeout(() => reject("Not Found"), 1000)
+                //setTimeout(() => resolve("All Good from one!!!"), 1000)
+                 setTimeout(() => reject("Not Found"), 1000)
             });
         }
 

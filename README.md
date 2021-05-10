@@ -589,3 +589,102 @@ var elem = `<div>
 8) async and await for Promise API to avoid nested callbacks
 -------------
 
+9) Generators are functions with multiple return values
+	
+	function* saga() {
+		console.log("task1");
+		console.log("task2");
+		yield "result 1";
+		console.log("task3");
+		console.log("task4");
+		yield 100;
+	}
+
+	let iter = saga();
+	iter.next(); 
+	iter.next();
+-----------------------------
+10) Module System and class
+	
+	Prior to ES 6: IIFE was used as module system ()();
+	Immediate Invoke Function expression
+	let customerModule = (function () {
+		let g = 100; // private to customerModule
+		function one() {
+			console.log(g);
+		}
+
+		function two() {
+			console.log(g);	
+		}
+	})();
+
+	let orderModule = (function () {
+		let g = 500;
+		function three() {
+			console.log(g);
+		}
+
+		function two() {
+			console.log("SS", g);	
+		}
+	})();
+-----------
+
+	ES 6 Module System and class
+
+	person.js
+	export class Person {
+		 constructor(name, age) {
+		 	this.name = name;
+		 	this.age = age;
+		 }
+
+		 getName() {
+		 	return this.name;
+		 }
+	}
+
+	other.js
+	import {Person} from './person';
+
+	let p = new Person("Sam", 43);
+
+	=============
+
+	lib.js
+
+	export add = function(x, y) {
+		return x + y;
+	}
+
+	export sub = function(x, y) {
+		return x - y;
+	}
+
+	let mul = function(x,y) {
+		return x * y;
+	}
+
+	other.js
+	import {add, sub} from './lib';
+	console.log(add(5,6));
+	================================
+
+	person.js
+	export default class Person {
+		 constructor(name, age) {
+		 	this.name = name;
+		 	this.age = age;
+		 }
+
+		 getName() {
+		 	return this.name;
+		 }
+	}
+
+	other.js
+	import Person from './person';
+
+	let p = new Person("Sam", 43);
+===================
