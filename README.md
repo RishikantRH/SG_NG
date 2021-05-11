@@ -589,3 +589,382 @@ var elem = `<div>
 8) async and await for Promise API to avoid nested callbacks
 -------------
 
+9) Generators are functions with multiple return values
+	
+	function* saga() {
+		console.log("task1");
+		console.log("task2");
+		yield "result 1";
+		console.log("task3");
+		console.log("task4");
+		yield 100;
+	}
+
+	let iter = saga();
+	iter.next(); 
+	iter.next();
+-----------------------------
+10) Module System and class
+	
+	Prior to ES 6: IIFE was used as module system ()();
+	Immediate Invoke Function expression
+	let customerModule = (function () {
+		let g = 100; // private to customerModule
+		function one() {
+			console.log(g);
+		}
+
+		function two() {
+			console.log(g);	
+		}
+	})();
+
+	let orderModule = (function () {
+		let g = 500;
+		function three() {
+			console.log(g);
+		}
+
+		function two() {
+			console.log("SS", g);	
+		}
+	})();
+-----------
+
+	ES 6 Module System and class
+
+	person.js
+	export class Person {
+		 constructor(name, age) {
+		 	this.name = name;
+		 	this.age = age;
+		 }
+
+		 getName() {
+		 	return this.name;
+		 }
+	}
+
+	other.js
+	import {Person} from './person';
+
+	let p = new Person("Sam", 43);
+
+	=============
+
+	lib.js
+
+	export add = function(x, y) {
+		return x + y;
+	}
+
+	export sub = function(x, y) {
+		return x - y;
+	}
+
+	let mul = function(x,y) {
+		return x * y;
+	}
+
+	other.js
+	import {add, sub} from './lib';
+	console.log(add(5,6));
+	================================
+
+	person.js
+	export default class Person {
+		 constructor(name, age) {
+		 	this.name = name;
+		 	this.age = age;
+		 }
+
+		 getName() {
+		 	return this.name;
+		 }
+	}
+
+	other.js
+	import Person from './person';
+
+	let p = new Person("Sam", 43);
+===================
+
+Node.js, webpack and TypeScript 
+===============================
+
+Node.js ==> an environment with V8 JavaScript engine
+	Why Node.JS?
+		1) To build realtime streaming API [ for Java: Netty with WebFlux]
+			build RESTful web services/ GraphQL
+		2) To build standalone application
+		3) as build environment for client-side web applications
+
+	As Build environment for client-side applications with the help of build tools:
+		* code might be written in TypeScript, ES6, CoffeeScript, LiveScript
+		 Transpile thme to ES5 to make it portable across browser
+		* We might use Module systems, which are not understood by browsers, we might need
+			to bundle them [ Browserify]
+		* minify, uglify to reduce payload	
+	-------------------------
+	WebAPI ==> Libuv [ C++ library]
+
+	Node.js when started loads many pre-defined modules [ fs, http, crypto, repl, cluster]
+	NPM / YARN ==> Node Package Manager is handle 3rd party modules
+			* download, update, upload
+
+	Project specific modules
+		npm install react
+	executable modules
+			npm install -g json-server
+
+	Every node.js project has "package.json" ==> pom.xml used by Maven
+	1) package.json
+	{
+		"dependencies": {
+			"@angular/core": "^8.0.1"
+		}
+		"devDependencies": {
+			"jest": "~26.6.3"
+		},
+		"scripts": {
+			"start" : "ng  serve --port 1234",
+			"test": "mocha --spec line"
+		}
+	}
+
+	npm start
+
+	2) "node_modules" folder
+		place where dependencies are downloded for the project
+--------------------------------------------------------------------
+	Person.js
+	babel Person.js ==> Person.js with ES5
+
+	JavaScript build tools ==> to automate tasks like : transcompiler, lint, testing, uglify,
+	minify, bundle
+
+
+	1) Grunt
+	2) Gulp
+	3) Webpack
+
+	Grunt is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting. 
+
+
+	CommonJS module system
+
+	lib.js
+
+	module.exports.add = function(x,y) {..}
+
+	module.exports.sub = function(x,y) {..}	
+
+
+	other.js
+
+	let lib = require('./lib');
+
+	console.log(lib.add(4,5));
+----------------
+index.html
+
+<script src="funcs.js"></script>
+<script src="Person.js"></script>
+<script src="index.js"></script>
+======================================================
+ "bootstrap": "^4.6.0",
+  "font-awesome": "^4.7.0",
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+@import 'font-awesome/css/font-awesome.css';
+
+npm i -g @angular/cli@latest
+ng --version
+
+npx -p @angular/cli ng new customerapp
+npx ng g c 
+========================
+
+
+
+Day 1 Recap: 
+JS, Execution Context, Event loop, callbacks, Functional style of programming, 
+HOF, Closures, memoize pattern, ES 6 features, ES 6 module system [ exports and import],
+Node.JS as build environment, webpack JavaScript Build tool 
+
+
+Day 2
+------
+JavaScript ==> loosely typed and dynamically typed
+
+TypeScript => datatypes for JavaScript
+
+JS engine
+
+ESNext, TypeScript, CoffeeScript, DART, LiveScript are used only in development stage
+these are transcompiled into JS for production.
+
+ESNext or ES6 we use babel
+babel a.js
+
+TypeScript
+npm i -g typescript
+
+Person.ts
+
+tsc Person.ts ===> Person.js [ production]
+
+TypeScript datatypes:
+
+1) Number
+	
+	let x:number = 10;
+	x = "A"; // error
+
+2) String
+	let name:string = "Peter";
+
+3) boolean
+	let flag:boolean = true;
+
+4) Array type
+
+	let data:number[] = [5,3,62];
+
+	or
+
+	let data:Array<number> = [5,326,2];
+
+5) any
+
+	let data : any;
+
+	data = doTask(); // not sure what type of data this method returns
+
+	// allows to use behaviour on return type
+
+	data.toUpperCase(); // runtime
+	data.firstName; // valid for tsc
+6) unknown
+
+	let data : unknown;
+
+	data = doTask();
+
+	data.toUpperCase(); //error
+	or
+	data.firstName; // error
+
+7) enum
+	enum Priority {
+		LOW, MED, HIGH
+	};
+
+	let bug:Priority = Priority.HIGH;
+
+8) void
+
+9) interface
+		8.1 ) to define a shape
+
+			interface Person {
+					id:number,
+					name:string,
+					address?: string
+			}
+
+			function addPerson(person: Person): void {
+
+			}
+
+			addPerson({"id":2,"name":"Priya"}); // valid
+			addPerson({"id":2,"name":"Priya", "address": "some address"}); // valid
+
+			addPerson({ "name":"Priya", "age": 23}); // invalid
+
+		8.2) to define a contract
+			interface Flyable {
+				fly(): void
+			}
+
+			class Bird implements Flyable {
+				//
+
+				fly(): void {
+
+				}
+			}
+9) Tuple
+	
+	let x:[string,number] = ["Hello", 5];
+
+10) never
+
+	function doTask(): never {
+		throw new Error("Boom :-(")
+	}
+=============
+
+	TSX ==> TypeScript and XML
+
+	function Welcome(props) {
+		return(
+				<div>
+						<h1> {props.name} </h1>
+				</div>
+			)
+	}
+===================
+
+TypeScript Decorators [ metadata] @decoratorName
+
+Metdata can be placed on class, function, fields ...
+
+@Component({
+	"selector": "<product>",
+	"templateUrl" : `<div>....</div>`
+})
+public class ProductComponent { 
+	products:Product[] = []; //state
+
+	deleteProduct(id:number):void { // behaviour
+
+	}
+}
+
+HTML
+	<product></product>
+
+@Component({
+	"selector": "<customer>",
+	"templateUrl" : `<div>....</div>`
+})
+public class CustomerComponent { 
+	customers:Customer[] = []; //state
+
+	deleteCustomer(id:number):void { // behaviour
+
+	}
+}
+
+Object.defineProperty(CustomerComponent.prototype, "selector", {value : "<customer>"});
+
+const object1 = {};
+
+Object.defineProperty(object1, 'property1', {
+  value: 42,
+  writable: false
+});
+
+object1.property1 = 77;
+// throws an error in strict mode
+
+console.log(object1.property1);
+// expected output: 42
+
+
+============
+
+Creating Decorators is using HOF using Closure
+==================================================
