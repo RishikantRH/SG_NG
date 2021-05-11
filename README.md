@@ -772,4 +772,20 @@ index.html
 <script src="Person.js"></script>
 <script src="index.js"></script>
 ======================================================
+ "bootstrap": "^4.6.0",
+  "font-awesome": "^4.7.0",
+
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+@import 'font-awesome/css/font-awesome.css';
+
+npm i -g @angular/cli@latest
+ng --version
+
+npx -p @angular/cli ng new customerapp
+npx ng g c 
+========================
+
+Day 2
+------
 
