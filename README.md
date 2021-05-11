@@ -786,6 +786,185 @@ npx -p @angular/cli ng new customerapp
 npx ng g c 
 ========================
 
+
+
+Day 1 Recap: 
+JS, Execution Context, Event loop, callbacks, Functional style of programming, 
+HOF, Closures, memoize pattern, ES 6 features, ES 6 module system [ exports and import],
+Node.JS as build environment, webpack JavaScript Build tool 
+
+
 Day 2
 ------
+JavaScript ==> loosely typed and dynamically typed
 
+TypeScript => datatypes for JavaScript
+
+JS engine
+
+ESNext, TypeScript, CoffeeScript, DART, LiveScript are used only in development stage
+these are transcompiled into JS for production.
+
+ESNext or ES6 we use babel
+babel a.js
+
+TypeScript
+npm i -g typescript
+
+Person.ts
+
+tsc Person.ts ===> Person.js [ production]
+
+TypeScript datatypes:
+
+1) Number
+	
+	let x:number = 10;
+	x = "A"; // error
+
+2) String
+	let name:string = "Peter";
+
+3) boolean
+	let flag:boolean = true;
+
+4) Array type
+
+	let data:number[] = [5,3,62];
+
+	or
+
+	let data:Array<number> = [5,326,2];
+
+5) any
+
+	let data : any;
+
+	data = doTask(); // not sure what type of data this method returns
+
+	// allows to use behaviour on return type
+
+	data.toUpperCase(); // runtime
+	data.firstName; // valid for tsc
+6) unknown
+
+	let data : unknown;
+
+	data = doTask();
+
+	data.toUpperCase(); //error
+	or
+	data.firstName; // error
+
+7) enum
+	enum Priority {
+		LOW, MED, HIGH
+	};
+
+	let bug:Priority = Priority.HIGH;
+
+8) void
+
+9) interface
+		8.1 ) to define a shape
+
+			interface Person {
+					id:number,
+					name:string,
+					address?: string
+			}
+
+			function addPerson(person: Person): void {
+
+			}
+
+			addPerson({"id":2,"name":"Priya"}); // valid
+			addPerson({"id":2,"name":"Priya", "address": "some address"}); // valid
+
+			addPerson({ "name":"Priya", "age": 23}); // invalid
+
+		8.2) to define a contract
+			interface Flyable {
+				fly(): void
+			}
+
+			class Bird implements Flyable {
+				//
+
+				fly(): void {
+
+				}
+			}
+9) Tuple
+	
+	let x:[string,number] = ["Hello", 5];
+
+10) never
+
+	function doTask(): never {
+		throw new Error("Boom :-(")
+	}
+=============
+
+	TSX ==> TypeScript and XML
+
+	function Welcome(props) {
+		return(
+				<div>
+						<h1> {props.name} </h1>
+				</div>
+			)
+	}
+===================
+
+TypeScript Decorators [ metadata] @decoratorName
+
+Metdata can be placed on class, function, fields ...
+
+@Component({
+	"selector": "<product>",
+	"templateUrl" : `<div>....</div>`
+})
+public class ProductComponent { 
+	products:Product[] = []; //state
+
+	deleteProduct(id:number):void { // behaviour
+
+	}
+}
+
+HTML
+	<product></product>
+
+@Component({
+	"selector": "<customer>",
+	"templateUrl" : `<div>....</div>`
+})
+public class CustomerComponent { 
+	customers:Customer[] = []; //state
+
+	deleteCustomer(id:number):void { // behaviour
+
+	}
+}
+
+Object.defineProperty(CustomerComponent.prototype, "selector", {value : "<customer>"});
+
+const object1 = {};
+
+Object.defineProperty(object1, 'property1', {
+  value: 42,
+  writable: false
+});
+
+object1.property1 = 77;
+// throws an error in strict mode
+
+console.log(object1.property1);
+// expected output: 42
+
+
+============
+
+Creating Decorators is using HOF using Closure
+==================================================
